@@ -1,6 +1,3 @@
-==============================================================
- DISEASE ETL PIPELINE & VISUALIZATION DASHBOARD
-==============================================================
 Date: 2025
 Description:
     This project implements a full end-to-end ETL pipeline for
@@ -8,29 +5,6 @@ Description:
     Delphi Epidata API. It fetches weekly flu surveillance data,
     transforms and stores it in SQLite, and visualizes results
     in an interactive web dashboard built with SvelteKit.
-
---------------------------------------------------------------
- PROJECT STRUCTURE
---------------------------------------------------------------
-
-backend/
-│
-├── app.py               # FastAPI web API (ETL, data, stats, map)
-├── etl/
-│   ├── ingest.py        # Fetch data from public Delphi API
-│   ├── transform.py     # Clean, normalize, and standardize schema
-│   ├── load.py          # Save/read data from SQLite
-│   └── utils.py         # Shared helper functions (e.g. epiweek ↔ ISO date)
-├── tests/
-│   └── test_etl.py      # Unit tests for ETL and API endpoints
-└── data/
-    └── disease.db       # Local SQLite database (auto-created)
-
-frontend/
-│
-├── src/routes/+page.svelte   # Main dashboard page
-├── src/lib/api.ts            # Frontend API helpers
-└── src/lib/components/       # UI components (chart, table, map, summary)
 
 --------------------------------------------------------------
  DATA SCHEMA
