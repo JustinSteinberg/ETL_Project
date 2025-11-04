@@ -1,31 +1,138 @@
-# Disease ETL Pipeline + Dashboard
+Author: Justin Steinberg
+Date: 2025
+Description:
+    This project implements a full end-to-end ETL pipeline for
+    Influenza-Like Illness (ILI) data from the Carnegie Mellon
+    Delphi Epidata API. It fetches weekly flu surveillance data,
+    transforms and stores it in SQLite, and visualizes results
+    in an interactive web dashboard built with SvelteKit.
 
-### 1. Clone the Repository
-git clone https://github.com/yourusername/disease-etl.git
-cd disease-etl
+--------------------------------------------------------------
+ PROJECT STRUCTURE
+--------------------------------------------------------------
 
-### 2. Backend Setup
-bash
-Copy code
-cd backend
-python -m venv venv
-source venv/bin/activate   # or .\venv\Scripts\activate on Windows
-pip install -r requirements.txt
-Create a .env file:
+backend/
+│
+├── app.py               # FastAPI web API (ETL, data, stats, map)
+├── etl/
+│   ├── ingest.py        # Fetch data from public Delphi API
+│   ├── transform.py     # Clean, normalize, and standardize schema
+│   ├── load.py          # Save/read data from SQLite
+│   └── utils.py         # Shared helper functions (e.g. epiweek ↔ ISO date)
+├── tests/
+│   └── test_etl.py      # Unit tests for ETL and API endpoints
+└── data/
+    └── disease.db       # Local SQLite database (auto-created)
 
-ini
-Copy code
-Ask for DELPHI_API_KEY
+frontend/
+│
+├── src/routes/+page.svelte   # Main dashboard page
+├── src/lib/api.ts            # Frontend API helpers
+└── src/lib/components/       # UI components (chart, table, map, summary)
 
-Then start FastAPI:
-bash
-Copy code
-uvicorn app:app --reload
-The backend will run at http://127.0.0.1:8000.
+--------------------------------------------------------------
+ DATA SCHEMA
+--------------------------------------------------------------
 
-### 3. Frontend Setup
-bash
-Copy code
-cd ../frontend
-npm install
-npm run dev
+Columns:
+    date        : Monday of ISO week (YYYY-MM-DD)
+    region      : Two-letter U.S. state code
+    value       : Weighted Influenza-Like Illness (%)
+    metric      : “ili”
+    source_id   : Unique per (region + epiweek)
+    epiweek     : Epidemiological week (YYYYWW)
+
+--------------------------------------------------------------
+ SETUP INSTRUCTIONS
+--------------------------------------------------------------
+
+1. Clone the repository:
+       git clone https://github.com/<your-username>/disease-etl.git
+       cd disease-etl
+
+--------------------------------------------------------------
+ BACKEND SETUP (FastAPI + SQLite)
+--------------------------------------------------------------
+
+2. Enter backend directory:
+       cd disease_etl_backend
+
+3. Create a virtual environment:
+       python -m venv venv
+       source venv/bin/activate        (macOS / Linux)
+       venv\Scripts\activate           (Windows)
+
+4. Install dependencies:
+       pip install -r requirements.txt
+
+5. Create a `.env` file in backend/:
+       DELPHI_API_KEY=your_api_key_here
+
+   (Obtain an API key at: https://cmu-delphi.github.io/delphi-epidata/)
+
+6. Run the FastAPI backend:
+       uvicorn app:app --reload
+
+   The API will be available at:
+       http://127.0.0.1:8000
+
+--------------------------------------------------------------
+ FRONTEND SETUP (SvelteKit)
+--------------------------------------------------------------
+
+7. In a new terminal, enter the frontend folder:
+       cd ../frontend
+
+8. Install dependencies:
+       npm install
+
+9. Start the development server:
+       npm run dev
+
+   Access the dashboard at:
+       http://localhost:5173
+
+--------------------------------------------------------------
+ TESTING
+--------------------------------------------------------------
+
+Run unit tests from the backend directory:
+       pytest -v
+
+The tests verify:
+   • Transform logic and schema integrity
+   • SQLite UPSERT and deduplication
+   • Summary statistics accuracy
+   • API responses (success + failure)
+   • Mocked fetch to simulate API errors
+
+--------------------------------------------------------------
+ EXAMPLE ENDPOINTS
+--------------------------------------------------------------
+
+    POST /etl/run        → Run ETL for date range
+    GET  /data           → Retrieve data rows
+    GET  /stats          → Summary statistics
+    GET  /map            → Mean ILI per state (for heatmap)
+    GET  /download.csv   → Download cleaned dataset
+
+--------------------------------------------------------------
+ VISUALIZATION FEATURES
+--------------------------------------------------------------
+
+   • Interactive line chart of ILI (%) by week
+   • Data table view with pagination
+   • U.S. heatmap showing ILI intensity per state
+   • Summary cards showing min, max, mean, median, stdev
+   
+   <img width="1056" height="715" alt="Screenshot 2025-11-04 at 6 01 48 PM" src="https://github.com/user-attachments/assets/d3e1cf43-1798-4235-a30a-f951d4610fe4" />
+
+
+  <img width="1218" height="724" alt="Screenshot 2025-11-04 at 6 01 15 PM" src="https://github.com/user-attachments/assets/0fffe741-83a2-4d68-9f97-343747eaa740" />
+
+--------------------------------------------------------------
+ LICENSE
+--------------------------------------------------------------
+
+MIT License © 2025 Justin Steinberg  
+Based on public data from the Carnegie Mellon University Delphi Group
