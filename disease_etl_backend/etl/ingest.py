@@ -32,7 +32,7 @@ def fetch(region: str, epiweeks: str | None = None) -> list[dict]:
     params = {
         "regions": region,
         "epiweeks": epiweeks or "201401-202552",
-        "api_key": API_KEY,  # Add your API key here
+        "api_key": API_KEY, 
     }
 
     r = requests.get(BASE, params=params, timeout=30)
