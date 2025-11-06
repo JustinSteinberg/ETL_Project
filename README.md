@@ -34,6 +34,7 @@ Columns:
        cd disease_etl_backend
 
 3. Create a virtual environment:
+
        python -m venv venv
        source venv/bin/activate        (macOS / Linux)
        venv\Scripts\activate           (Windows)
