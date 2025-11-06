@@ -23,6 +23,7 @@ Description:
 --------------------------------------------------------------
 
 1. Clone the repository:
+
        git clone https://github.com/<your-username>/disease-etl.git
        cd disease-etl
 
@@ -31,26 +32,31 @@ Description:
 --------------------------------------------------------------
 
 2. Enter backend directory:
+   
        cd disease_etl_backend
 
-3. Create a virtual environment:
+4. Create a virtual environment:
 
        python -m venv venv
        source venv/bin/activate        (macOS / Linux)
        venv\Scripts\activate           (Windows)
 
-4. Install dependencies:
+5. Install dependencies:
+   
        pip install -r requirements.txt
 
-5. Create a `.env` file in backend/:
+7. Create a `.env` file in backend/:
+   
        DELPHI_API_KEY=your_api_key_here
 
    (Obtain an API key at: https://cmu-delphi.github.io/delphi-epidata/)
 
-6. Run the FastAPI backend:
+9. Run the FastAPI backend:
+
        uvicorn app:app --reload
 
    The API will be available at:
+   
        http://127.0.0.1:8000
 
 --------------------------------------------------------------
@@ -58,25 +64,31 @@ Description:
 --------------------------------------------------------------
 
 7. In a new terminal, enter the frontend folder:
+   
        cd ../frontend
 
-8. Install dependencies:
+9. Install dependencies:
+    
        npm install
 
-9. Start the development server:
-       npm run dev
+11. Start the development server:
+
+        npm run dev
 
    Access the dashboard at:
-       http://localhost:5173
+   
+       http://localhost:3000
 
 --------------------------------------------------------------
  TESTING
 --------------------------------------------------------------
 
 Run unit tests from the backend directory:
+
        pytest -v
 
 The tests verify:
+    
    • Transform logic and schema integrity
    • SQLite UPSERT and deduplication
    • Summary statistics accuracy
