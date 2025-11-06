@@ -10,13 +10,13 @@ Description:
  DATA SCHEMA
 --------------------------------------------------------------
 
-Columns:
-    date        : Monday of ISO week (YYYY-MM-DD)
-    region      : Two-letter U.S. state code
-    value       : Weighted Influenza-Like Illness (%)
-    metric      : “ili”
-    source_id   : Unique per (region + epiweek)
-    epiweek     : Epidemiological week (YYYYWW)
+    Columns:
+        date        : Monday of ISO week (YYYY-MM-DD)
+        region      : Two-letter U.S. state code
+        value       : Weighted Influenza-Like Illness (%)
+        metric      : “ili”
+        source_id   : Unique per (region + epiweek)
+        epiweek     : Epidemiological week (YYYYWW)
 
 --------------------------------------------------------------
  SETUP INSTRUCTIONS
