@@ -25,7 +25,7 @@ Description:
 
 1. Clone the repository:
 
-       git clone https://github.com/<your-username>/disease-etl.git
+       git clone https://github.com/<your-user-name>/ETL_Project.git
        cd disease-etl
 
 --------------------------------------------------------------
